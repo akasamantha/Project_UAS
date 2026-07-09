@@ -1,24 +1,57 @@
 <?php
 
-class Database {
 
-    private $conn;
+class Database{
 
-    public function getConnection() {
 
-        $this->conn = new mysqli(
-            "localhost",
-            "root",
-            "",
-            "toko_db"
-        );
+private $host="localhost";
+private $db="laundry";
+private $user="root";
+private $pass="";
+public function connect(){
 
-        if($this->conn->connect_error){
-            die("Koneksi gagal: " .
-            $this->conn->connect_error);
-        }
 
-        return $this->conn;
-    }
+try{
+$conn=new PDO(
+
+"mysql:host=".$this->host.";dbname=".$this->db,
+
+$this->user,
+
+$this->pass
+
+);
+
+
+
+$conn->setAttribute(
+
+PDO::ATTR_ERRMODE,
+
+PDO::ERRMODE_EXCEPTION
+
+);
+
+
+
+return $conn;
+
+
+
+}catch(PDOException $e){
+
+
+echo "Database error : ".$e->getMessage();
+
+
 }
+
+
+}
+
+
+
+}
+
+
 ?>
